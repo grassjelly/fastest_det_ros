@@ -1,5 +1,5 @@
 ## yolo_fastest_ros
-Colconized [yolov5](https://github.com/ultralytics/yolov5) Python library for easier inference deployment on a ROS2 system.
+Colconized [YoloFastest](https://github.com/dog-qiuqiu/Yolo-Fastest) Python library for easier inference deployment on a ROS2 system.
 
 ## Installation
 
