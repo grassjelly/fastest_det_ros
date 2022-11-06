@@ -1,0 +1,4 @@
+[submodule "yolo_fastest_ros/yolo_fastest"]
+	path = yolo_fastest_ros/yolo_fastest
+	url = https://github.com/dog-qiuqiu/Yolo-FastestV2
+    branch = master
