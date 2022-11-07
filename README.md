@@ -4,7 +4,9 @@ Colconized [FastestDet](https://github.com/dog-qiuqiu/FastestDet) Python library
 ## Installation
 
     pip install torch torchvision
-    cd <your_colcon_ws>
+    cd <your_colcon_ws>/src
+    git clone --recursive https://github.com/grassjelly/fastest_det_ros
+    cd ..
     rosdep install --from-paths src -i -r -y
     colcon build
 
