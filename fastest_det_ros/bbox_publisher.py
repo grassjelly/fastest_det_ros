@@ -3,10 +3,8 @@ import time
 import copy
 import rclpy
 from rclpy.node import Node
-from rclpy.duration import Duration
 from rclpy.qos import qos_profile_sensor_data
-from sensor_msgs.msg import LaserScan, CameraInfo, Image
-from std_msgs.msg import Float32MultiArray, Header, ColorRGBA
+from sensor_msgs.msg import Image
 from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
@@ -53,8 +51,6 @@ class ObjectDetector(Node):
     def _inference_callback(self):
         if self._image is None:
             return
-
-        start = time.perf_counter()
      
         classes, bbox, conf = self._detector.predict(self._image)
         self._publish_debug(
