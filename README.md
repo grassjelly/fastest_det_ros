@@ -11,10 +11,16 @@ Colconized [FastestDet](https://github.com/dog-qiuqiu/FastestDet) Python library
 ## Usage
 
 Import inference from fastest_det_ros and call the `predict` function.
+
     import cv2
     from fastest_det_ros.inference import FastestDet
 
-    model = FastestDet()
+    detector = FastestDet(
+        weights=<path to .pth>,
+        imsgz=[352,352], #height, width,
+        thresh=0.5,
+        device='gpu'
+    )
 
     image = cv2.imread('test.jpg')
-    classes, bounding_boxes = model.predict(image)
+    classes, bounding_boxes, confidence = detector.predict(image)
