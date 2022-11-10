@@ -27,4 +27,9 @@ setup(
     maintainer_email='jimenojmm@gmail.com',
     description='Colconized fastest_det_ros',
     license='Apache 2.0',
+    entry_points={
+        'console_scripts': [
+            'bbox_publisher = fastest_det_ros.bbox_publisher:main'
+        ],
+    },
 )
