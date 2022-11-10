@@ -72,12 +72,14 @@ class FastestDet:
         classes = []
         bounding_boxes = []
         confidence = []
+        object_indices = []
 
         for box in output[0]:
             sub_box = []
             box = box.tolist()
             obj_score = box[4]
-            category = self.labels[int(box[5])]
+            obj_index = int(box[5])
+            category = self.labels[obj_index]
 
             x1, y1 = int(box[0] * w), int(box[1] * h)
             x2, y2 = int(box[2] * w), int(box[3] * h)
@@ -88,8 +90,9 @@ class FastestDet:
             bounding_boxes.append(sub_box)
             confidence.append(obj_score)
             classes.append(category)
+            object_indices.append(obj_index)
 
-        return classes, bounding_boxes, confidence
+        return classes, object_indices, bounding_boxes, confidence
 
         
 

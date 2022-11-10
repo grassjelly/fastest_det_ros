@@ -52,7 +52,7 @@ class ObjectDetector(Node):
         if self._image is None:
             return
      
-        classes, bbox, conf = self._detector.predict(self._image)
+        classes, object_indices, bbox, conf = self._detector.predict(self._image)
         self._publish_debug(
             self._image,
             classes,
@@ -65,7 +65,7 @@ class ObjectDetector(Node):
         obj_array.header.stamp = self.get_clock().now().to_msg()
 
         for i, box in enumerate(bbox):
-            bbox_msg = self._create_bbox_msg(box, i, classes[i], conf[i])
+            bbox_msg = self._create_bbox_msg(box, classes[i], conf[i])
             obj_array.detections.append(bbox_msg)
 
         self._bbox_publisher.publish(obj_array)
@@ -96,12 +96,12 @@ class ObjectDetector(Node):
 
         self._image = cv2.cvtColor(cv_image,cv2.COLOR_BGR2RGB)
 
-    def _create_bbox_msg(self, box, id, label, conf):
+    def _create_bbox_msg(self, box, label, conf):
         obj = Detection2D()
         obj_hypothesis = ObjectHypothesisWithPose()
 
         obj.header.stamp = self.get_clock().now().to_msg()
-        obj_hypothesis.hypothesis.class_id = str(id)
+        obj_hypothesis.hypothesis.class_id = str(label)
         obj_hypothesis.hypothesis.score = conf
         obj.results.append(obj_hypothesis)
 
