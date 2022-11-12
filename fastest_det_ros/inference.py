@@ -72,7 +72,6 @@ class FastestDet:
         classes = []
         bounding_boxes = []
         confidence = []
-        object_indices = []
 
         for box in output[0]:
             sub_box = []
@@ -90,9 +89,8 @@ class FastestDet:
             bounding_boxes.append(sub_box)
             confidence.append(obj_score)
             classes.append(category)
-            object_indices.append(obj_index)
 
-        return classes, object_indices, bounding_boxes, confidence
+        return classes, bounding_boxes, confidence
 
         
 
