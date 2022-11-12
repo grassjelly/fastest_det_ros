@@ -14,7 +14,7 @@ from fastest_det_ros.inference import FastestDet
 class ObjectDetector(Node):
     def __init__(self):
         super().__init__('object_detector')
-        self.declare_parameter('camera_topic', '/camera/color/image_raw')
+        self.declare_parameter('camera_topic', '/camera/image')
         self._camera_topic = self.get_parameter('camera_topic').value
         
         self._cv_bridge = CvBridge()
