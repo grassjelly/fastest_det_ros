@@ -52,7 +52,7 @@ class ObjectDetector(Node):
         if self._image is None:
             return
      
-        classes, object_indices, bbox, conf = self._detector.predict(self._image)
+        classes, bbox, conf = self._detector.predict(self._image)
         self._publish_debug(
             self._image,
             classes,
