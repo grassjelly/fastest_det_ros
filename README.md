@@ -26,3 +26,13 @@ Import inference from fastest_det_ros and call the `predict` function.
 
     image = cv2.imread('test.jpg')
     classes, bounding_boxes, confidence = detector.predict(image)
+
+## Troubleshooting Guide
+
+- TLS Memory Block Error:
+
+    export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/torch/lib/../../torch.libs/libgomp-d22c30c5.so.1.0.0
+
+- Numpy Not Available
+
+    pip install numpy --upgrade
