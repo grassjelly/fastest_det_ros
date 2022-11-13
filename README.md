@@ -10,6 +10,8 @@ Colconized [FastestDet](https://github.com/dog-qiuqiu/FastestDet) Python library
     rosdep install --from-paths src -i -r -y
     colcon build
 
+* For Raspberry Pi 4 use torch==1.12, torchvision==0.13
+
 ## Usage
 
 Import inference from fastest_det_ros and call the `predict` function.
@@ -29,9 +31,10 @@ Import inference from fastest_det_ros and call the `predict` function.
 
 ## Troubleshooting Guide
 
-- TLS Memory Block Error:
-
+- libgomp-* cannot allocate memory in static TLS block:
+                                                            
         export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/torch/lib/../../torch.libs/libgomp-d22c30c5.so.1.0.0
+        export LD_PRELOAD=/home/ubuntu/.local/lib/python3.8/site-packages/torch.libs/libgomp-d22c30c5.so.1.0.0
 
 - Numpy Not Available
 
