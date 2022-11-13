@@ -94,4 +94,8 @@ class FastestDet:
 
         
 
-        
+if __name__ == '__main__':
+    f = FastestDet()
+    im = cv2.imread('test.jpg')
+    classes, _, _ = f.predict(im)
+    print(classes)
