@@ -31,8 +31,8 @@ Import inference from fastest_det_ros and call the `predict` function.
 
 - TLS Memory Block Error:
 
-    export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/torch/lib/../../torch.libs/libgomp-d22c30c5.so.1.0.0
+        export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/torch/lib/../../torch.libs/libgomp-d22c30c5.so.1.0.0
 
 - Numpy Not Available
 
-    pip install numpy --upgrade
+        pip install numpy --upgrade
