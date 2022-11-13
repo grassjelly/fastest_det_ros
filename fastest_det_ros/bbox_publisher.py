@@ -4,6 +4,7 @@ import copy
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
+from std_msgs.msg import UInt16
 from sensor_msgs.msg import Image
 from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
 import cv2
@@ -42,6 +43,12 @@ class ObjectDetector(Node):
             qos_profile_sensor_data
         ) 
 
+        self._debug_inf_time_publisher = self.create_publisher(
+            UInt16, 
+            '/objects_inference_time', 
+            qos_profile_sensor_data
+        ) 
+
         inference_timer = self.create_timer(0.2, self._inference_callback)
 
         self._detector = FastestDet()
@@ -52,12 +59,17 @@ class ObjectDetector(Node):
         if self._image is None:
             return
      
+        inf_start = time.perf_counter()
         classes, bbox, conf = self._detector.predict(self._image)
+        inf_end = time.perf_counter()
+        inf_time = int((inf_end - inf_start) * 1000)
+
         self._publish_debug(
             self._image,
             classes,
             bbox,
-            conf
+            conf,
+            inf_time
         )
 
         obj_array = Detection2DArray()
@@ -70,7 +82,7 @@ class ObjectDetector(Node):
 
         self._bbox_publisher.publish(obj_array)
 
-    def _publish_debug(self, image, classes, bbox, conf):
+    def _publish_debug(self, image, classes, bbox, conf, inference_time):
         image = copy.deepcopy(self._image)
         img_cv = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
@@ -86,6 +98,10 @@ class ObjectDetector(Node):
             print(e)
         
         self._debug_image_publisher.publish(image_out)
+
+        int_msg = UInt16()
+        int_msg.data = inference_time
+        self._debug_inf_time_publisher.publish(int_msg)
 
     def _camera_callback(self, image_msg):
         try:
