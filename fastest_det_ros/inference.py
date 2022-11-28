@@ -25,19 +25,15 @@ class FastestDet:
             data=lib_folder + '/data/coco.data',
             imgsz=[352, 352],  # inference size (height, width)
             thresh=0.4,
-            device='cpu'
     ):
         self.thresh = thresh
         self.img_size = imgsz
 
-        if device == 'cpu':
-            self.device = torch.device('cpu')
+        if torch.cuda.is_available():
+            self.device = torch.device('cuda')
         else:
-            if torch.cuda.is_available():
-                self.device = torch.device('cuda')
-            else:
-                self.device = torch.device('cpu')     
-
+            self.device = torch.device('cpu')     
+        
         self.labels = []
         with open(lib_folder + '/configs/coco.names', 'r') as f:
             for line in f.readlines():
