@@ -26,6 +26,13 @@ class FastestDet:
             imgsz=[352, 352],  # inference size (height, width)
             thresh=0.4,
     ):
+        if weights is None:
+            weights = lib_folder + '/weights/weight_AP05:0.253207_280-epoch.pth'
+            
+        if data is None:
+            data=lib_folder + '/data/coco.data'
+
+
         self.thresh = thresh
         self.img_size = imgsz
 
